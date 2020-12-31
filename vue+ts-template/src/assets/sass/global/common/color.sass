@@ -1,0 +1,11 @@
+@import ../variables/colors
+
+@each $key, $val in $colors
+  .g-color-#{$key}
+    color: $val !important
+
+  .g-bgc-#{$key}
+    background-color: $val !important
+
+  .g-border-color-#{$key}
+    border-color: $val !important

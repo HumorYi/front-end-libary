@@ -1,0 +1,1 @@
+.c-checkbox{display:flex;align-items:center;cursor:pointer;user-select:none}.c-checkbox .checkbox{display:inline-block;width:14px;height:14px;margin-right:8px;border:1px solid #6b6b6b}.c-checkbox .checkbox.active{display:flex;align-items:center;justify-content:center;border-color:#5794fc;background-color:#5794fc}.c-checkbox .checkbox.active .iconfont{color:#fff;font-size:12px}

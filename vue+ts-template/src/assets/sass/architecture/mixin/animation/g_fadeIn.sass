@@ -1,0 +1,12 @@
+@mixin g_fadeIn($transform-start: false, $transform-end: false)
+  0%
+    opacity: 0
+
+    @if $transform-start
+      transform: $transform-start
+
+  100%
+    opacity: 1
+
+    @if $transform-end
+      transform: $transform-end

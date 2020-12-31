@@ -1,0 +1,79 @@
+<!--
+  使用方式：
+    调用：
+      <checkbox></checkbox>
+
+    参数：
+      checked:  Boolean   // 是否选中，默认不选中
+      open:     Boolean   // 是否开启，默认开启
+      title:    String    // 标题，默认 全选
+      param:    Any       // 参数，用于做数据传递，点击时在事件中传递回去
+
+    事件：
+      check
+        说明：选中事件
+        参数：
+          checked   Boolean   是否选中
+          param     Any       传递进来的数据
+
+  实现方式：
+    通过 css 模拟复选框
+
+  example:
+    <checkbox @check="check"></checkbox>
+-->
+<link
+  rel="stylesheet"
+  href="/Public/assets/common/css/components/checkbox.css"
+/>
+
+<script type="text/template" id="c-checkbox">
+  <div class="c-checkbox" @click="check">
+    <span v-if="open" class="checkbox" :class="{active: ownChecked}">
+      <i v-if="ownChecked" class="iconfont icon-dui"></i>
+    </span>
+    <span v-if="title">{{title}}</span>
+  </div>
+</script>
+
+<script>
+  Vue.component('checkbox', {
+    template: '#c-checkbox',
+    data: function () {
+      return {
+        ownChecked: false
+      }
+    },
+    props: {
+      param: {},
+      open: {
+        type: Boolean,
+        default: true
+      },
+      checked: {
+        type: Boolean,
+        default: false
+      },
+      title: {
+        type: String,
+        default: '全选'
+      }
+    },
+    methods: {
+      check: function () {
+        if (!this.open) {
+          return
+        }
+
+        this.ownChecked = !this.ownChecked
+
+        this.$emit('check', this.ownChecked, this.param)
+      }
+    },
+    watch: {
+      checked: function () {
+        this.ownChecked = this.checked
+      }
+    }
+  })
+</script>

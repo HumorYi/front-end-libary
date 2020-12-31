@@ -1,0 +1,57 @@
+.g-table
+  width: 100%
+  table-layout: fixed
+  font-size: 12px
+
+  &,
+  thead,
+  tbody
+    display: block
+
+  thead
+    background-color: #F5F7FA
+    color: #333
+
+  tbody
+    color: #626466
+
+  &.mt
+    margin-top: 24px
+
+  &.flex-container
+    thead,
+    tbody tr
+      display: flex
+      align-items: center
+
+  &.flex-item
+    thead th,
+    tbody tr td
+      display: flex
+      align-items: center
+      flex: 1
+      height: 100%
+
+  &.center
+    thead th,
+    tbody tr td
+      justify-content: center
+
+  &.height
+    thead
+      min-height: 40px
+
+    tbody
+      tr
+        min-height: 50px
+        border-bottom: 1px solid #EBEFF5
+
+  &.modal
+    tbody
+      overflow-y: auto
+
+  &.event
+    tbody
+      tr
+        &:nth-of-type(even)
+          background-color: #F8FAFC

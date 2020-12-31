@@ -1,0 +1,56 @@
+@import ./mixin/animation/g_fadeIn
+@import ./mixin/animation/g_fadeOut
+@import ./mixin/animation/g_spin
+
+@keyframes fade-out
+  @include g_fadeOut()
+
+@keyframes fade-in
+  @include g_fadeIn()
+
+@keyframes fade-in-left
+  @include g_fadeIn(translateX(5px), translateY(0))
+
+@keyframes fade-in-right
+  @include g_fadeIn(translateX(-10px), translateY(0))
+
+@keyframes fade-in-top
+  @include g_fadeIn(translateY(-5px), translateY(0))
+
+@keyframes fade-in-bottom
+  @include g_fadeIn(translateY(5px), translateY(0))
+
+@keyframes spin-left
+  @include g_spin()
+
+@keyframes spin-right
+  @include g_spin(false)
+
+@keyframes spinner
+  @include g_fadeOut()
+
+@keyframes row-up
+  0%
+    margin-top: 0
+
+  100%
+    margin-top: -100%
+    display: none
+
+@keyframes radar
+  0%
+    transform: scale(1)
+    opacity: 1
+
+  100%
+    opacity: 0
+    transform: scale(2)
+
+@keyframes bounce-in
+  0%
+    opacity: 0
+    transform: scale(.5)
+
+  100%
+    opacity: 1
+    transform: scale(1)

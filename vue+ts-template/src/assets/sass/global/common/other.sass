@@ -1,0 +1,227 @@
+@import @archSass/mixin/g_coupon
+
+/* 清除浮动 S */
+.g-clearfix:after
+  content: '',
+  display: block
+  clear: both
+/* 清除浮动 E */
+
+/* 必填符号 E */
+.g-required:before
+  content: '*'
+  color: #F56C6C
+  margin-right: 4px
+/* 必填符号 E */
+
+.g-full-page
+  width: $width
+  height: 100%
+
+.g-full-width
+  width: 100%
+
+.g-full-height
+  width: 100%
+
+.g-full-box
+  @extend .g-full-width
+  @extend .g-full-height
+
+.g-container
+  width: $width
+  margin: 0 auto
+
+.g-text-ellipsis
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.g-mask
+  position: absolute
+  z-index: 400
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+
+  background-color: rgba(0, 0, 0, 0.4)
+
+  &.fixed
+    position: fixed
+    z-index: 10000
+
+.g-hover-listitem
+  &:not(.cancel-hover):hover
+    transform: translateY(-4px)
+    box-shadow: 0 4px 12px 2px rgba(0, 0, 0,.1)
+    transition: all .2s ease-in-out
+    z-index: 600
+
+    .other-data,
+    .features-wrap,
+    .shop-desc
+      display: block
+
+.g-fwb
+  font-weight: bold
+
+.g-fwn
+  font-weight: normal
+
+.g-cursor-pointer
+  cursor: pointer
+
+.g-line-through
+  text-decoration: line-through
+
+.g-usn
+  user-select: none
+
+.g-bs-bb
+  box-sizing: border-box
+
+.g-bs-cb
+  box-sizing: content-box
+
+.g-tac
+  text-align: center
+
+.g-tal
+  text-align: left
+
+.g-tar
+  text-align: right
+
+.g-flex-enable-ellipsis
+  min-width: 0
+
+.g-db
+  display: block
+
+.g-dib
+  display: inline-block
+
+.g-di
+  display: inline
+
+.g-dn
+  display: none !important
+
+.g-dtr
+  display: table-row
+
+.g-flex-1
+  flex: 1
+
+.g-line
+  height: 1px
+  background-color: #EBEFF5
+
+.g-desc-wrap
+  margin-bottom: 20px
+  padding: 28px
+  border-radius: 4px
+  background-color: #fff
+
+  + *:last-child.g-desc-wrap
+    margin-bottom: 0
+
+.g-desc-ml
+  margin-left: 8px
+
+.g-desc-list
+  margin-left: 26px
+  line-height: 20px
+  font-size: 14px
+
+.g-pagination-mt
+  margin-top: 28px !important
+
+.g-tab-mb
+  margin-bottom: 20px
+
+.g-font-size
+  font-size: 12px
+
+.g-title-vl
+  display: flex
+  align-items: center
+  margin-bottom: 18px
+
+  font-size: 14px
+  font-weight: bold
+
+  &:before
+    content: ''
+    display: inline-block
+    width: 3px
+    height: 14px
+    margin-right: 8px
+    background-color: #06f
+
+.g-title-desc
+  margin-bottom: 15px
+  color: #999
+  font-size: 12px
+
+.g-title-vl-desc
+  @extend .g-title-desc
+  margin-top: -10px
+  line-height: 18px
+
+.g-title-sup
+  margin-left: 15px
+  font-size: 12px
+
+.g-coupon-wrap
+  $height: 24px
+  $bgc: #F07F15
+  $size: 3px
+  $border-radius: 4px
+  $color: #fff
+  $padding-coupon: 12px
+
+  display: inline-block
+  padding-left: $size
+  padding-right: $size
+  height: $height
+  line-height: $height
+
+  text-align: center
+  border-radius: $border-radius
+  color: $color
+
+  @include g_coupon($height, $bgc, $size)
+
+  .g-coupon
+    display: inline-block
+    background-color: $bgc
+    padding-left: $padding-coupon
+    padding-right: $padding-coupon
+
+.g-fold,
+.g-unfold
+  display: inline-block
+  transition: all 0.2s
+
+.g-fold
+  transform: rotate(0deg)
+
+.g-unfold
+  transform: rotate(180deg)
+
+.g-full-height
+  height: 100%
+
+.g-error-mt
+  margin-top: 10px
+
+.g-form-tip-mb
+  margin-bottom: 20px
+
+.g-model-text-mt
+  margin-top: 10px
+
+.g-model-text-item-mr
+  margin-right: 40px

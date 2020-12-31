@@ -1,0 +1,32 @@
+@mixin g_placeHolderColor($color: #999, $fontSize: 12px)
+  &::-webkit-input-placeholder
+    /* WebKit, Blink, Edge */
+    color: $color
+    font-size: $fontSize
+
+
+  &:-moz-placeholder
+    /* Mozilla Firefox 4 to 18 */
+    color: $color
+    font-size: $fontSize
+
+
+  &::-moz-placeholder
+    /* Mozilla Firefox 19+ */
+    color: $color
+    font-size: $fontSize
+
+
+  &:-ms-input-placeholder
+    /* Internet Explorer 10-11 */
+    color: $color
+    font-size: $fontSize
+
+
+@mixin setAnimation($name, $duration: .8s, $timingFunction: ease, $iterationCount: 1, $direction: normal, $fillMode: both)
+  animation-name: $name
+  animation-duration: $duration
+  animation-timing-function: $timingFunction
+  animation-iteration-count: $iterationCount
+  animation-direction: $direction
+  animation-fill-mode: $fillMode

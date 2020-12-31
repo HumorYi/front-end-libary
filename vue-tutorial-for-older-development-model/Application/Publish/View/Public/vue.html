@@ -1,0 +1,26 @@
+<script>
+  function iePolyfill() {
+    if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+      var script = document.createElement('script')
+      script.src =
+        'https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js'
+      document.head.appendChild(script)
+    }
+  }
+
+  iePolyfill()
+</script>
+
+<script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.2/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/qs/6.9.3/qs.min.js"></script>
+
+<script src="/Public/assets/common/util/lib.js"></script>
+<script src="/Public/assets/common/util/loading.js"></script>
+<script src="/Public/assets/common/util/counter.js"></script>
+
+<script src="/Public/assets/common/config/api.js"></script>
+
+<script src="/Public/assets/common/http/interceptors.js"></script>
+<script src="/Public/assets/common/http/request.js"></script>
+<script src="/Public/assets/common/filter/index.js"></script>

@@ -1,0 +1,27 @@
+<include file="Public/header" />
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_855695_tizw7e7fun.css" />
+<link rel="stylesheet" href="/Public/assets/common/css/reset.css" />
+<include file="Public/css" />
+<include file="Public/vue" />
+<include file="Public/js" />
+
+<include file="Public/components/checkbox" />
+
+<link
+  rel="stylesheet"
+  href="/Public/assets/publish/css/favorites/index.css?t=20200522"
+/>
+
+<div id="favorites">
+  <checkbox
+    title="复选框"
+    :checked="checked"
+    @check="toggleCheckbox"
+  ></checkbox>
+</div>
+
+<script src="/Public/assets/common/mixin/dialog.js"></script>
+<script src="/Public/assets/common/util/verify.js"></script>
+<script src="/Public/assets/publish/js/api/favorites.js"></script>
+<script src="/Public/assets/publish/js/favorites/index.js?t=202005212026"></script>

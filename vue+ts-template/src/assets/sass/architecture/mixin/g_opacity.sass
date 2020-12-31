@@ -1,0 +1,16 @@
+@mixin g_opacity($val: 1)
+  /* IE 8 */
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=50)'
+
+  /* IE 5-7 */
+  filter: alpha(opacity=$val * 100)
+  zoom: 1
+
+  /* Netscape */
+  -moz-opacity: $val
+
+  /* Safari 1.x */
+  -khtml-opacity: $val
+
+  /* Good browsers */
+  opacity: $val

@@ -1,0 +1,60 @@
+.g-df
+  display: flex
+
+  &-c
+    @extend .g-df
+    align-items: center
+    justify-content: center
+
+  &-vc
+    @extend .g-df
+    align-items: center
+
+  &-vfe
+    @extend .g-df
+    align-items: flex-end
+
+  &-hc
+    @extend .g-df
+    justify-content: center
+
+  &-hsa
+    @extend .g-df
+    justify-content: space-around
+
+  &-hsb
+    @extend .g-df
+    justify-content: space-between
+
+  &-hfe
+    @extend .g-df
+    justify-content: flex-end
+
+  &-vc-hsb
+    @extend .g-df-vc
+    justify-content: space-between
+
+  &-vc-hsa
+    @extend .g-df-vc
+    justify-content: space-around
+
+  &-vc-hc
+    @extend .g-df-vc
+    justify-content: center
+
+  &-vc-hfe
+    @extend .g-df-vc
+    justify-content: flex-end
+
+  &-vc-hfs
+    @extend .g-df-vc
+    justify-content: flex-start
+
+  &.wrap
+    flex-wrap: wrap
+
+  &.column
+    flex-direction: column
+
+  &.important
+    display: flex !important

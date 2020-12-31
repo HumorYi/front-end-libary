@@ -1,0 +1,41 @@
+// 共动画，使用 g- 前缀标识
+
+@import ./keyframes.sass
+@import ./mixin.sass
+
+$duration-fade-in: .8s
+$duration-bounce-in: .3s
+$duration-spin: .5s
+$duration-row-up: 8s
+
+.fade-enter-active,
+.fade-leave-active
+  transition: opacity .5s
+
+.fade-enter,
+.fade-leave-to
+  opacity: 0
+
+.g-fade-in-left
+  @include setAnimation(fade-in-left, $duration-fade-in)
+
+.g-fade-in-right
+  @include setAnimation(fade-in-right, $duration-fade-in)
+
+.g-fade-in-top
+  @include setAnimation(fade-in-top, $duration-fade-in)
+
+.g-fade-in-bottom
+  @include setAnimation(fade-in-bottom, $duration-fade-in)
+
+.g-bounce-in
+  @include setAnimation(bounce-in, $duration-bounce-in)
+
+.g-spin-left
+  @include setAnimation(spin-left, $duration-spin, linear, infinite)
+
+.g-spin-right
+  @include setAnimation(spin-right, $duration-spin, linear, infinite)
+
+.g-row-up
+  @include setAnimation(row-up, $duration-row-up, linear, infinite)
