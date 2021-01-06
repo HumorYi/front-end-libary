@@ -17,7 +17,7 @@
     "develop": "vue-cli-service build --mode beta",
     "master": "vue-cli-service build",
     "release": "vue-cli-service build --mode production",
-    "release.local": "vue-cli-service build --mode release.local"
+    "release-local": "vue-cli-service build --mode release-local"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
