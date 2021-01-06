@@ -37,15 +37,17 @@
 ## git 分支管理（各司其职）
 
   ```
-1、master 分支    -- 服务器-拉取正式环境编译构建源码
-2、develop 分支   -- 服务器-拉取测试环境编译构建源码
-3、build 分支     -- 开发环境-正式环境源码，用于构建正式环境源码
-4、beta 分支      -- 开发环境-测试环境源码，用于构建测试环境源码
-5、share 分支     -- 开发环境-全局公共配置、工具等改动都得在此分支改，
+1、develop 分支   -- 服务器-拉取 测试 环境编译构建源码
+2、release 分支   -- 服务器-拉取 灰度 环境编译构建源码
+3、master 分支    -- 服务器-拉取 正式 环境编译构建源码
+4、beta 分支      -- 开发环境- 测试 环境源码，用于构建 测试 环境源码
+5、rc 分支        -- 开发环境- 灰度 环境源码，用于构建 灰度 环境源码
+6、build 分支     -- 开发环境- 正式 环境源码，用于构建 正式 环境源码
+7、share 分支     -- 开发环境-全局公共配置、工具等改动都得在此分支改，
                     个人分支再拉取，所有个人或功能分支共享更改，减少维护量和易出错，
                     当 build 发布稳定后，从 build 同步到 share，
                     保持 share 与 build 同步，避免后续分支合并、拉取冲突
-6、个人或功能分支  -- 从 build 分支中切新分支开发
+8、个人或功能分支  -- 从 build 分支中切新分支开发
   ```
 
 ## 自动化打包部署到git（必须在指定分支部署）
@@ -62,7 +64,13 @@
     执行部署命令：
         yarn beta
 
-3、部署-正式环境
+3、部署-灰度环境
+    将当前分支切换到 release 分支，将要部署的分支合并到 release 分支，
+    开启命令行终端，进入当前项目目录
+    执行部署命令：
+        yarn rc
+
+4、部署-正式环境
     将当前分支切换到 build 分支，将要部署的分支合并到 build 分支，
     开启命令行终端，进入当前项目目录
     执行部署命令：
@@ -239,24 +247,28 @@ OUTPUT_DIR = '../release-test/public'
 "scripts": {
   // 模块编译缓存，提升编译和构建速度
   "dll": "webpack -p --progress --profile --colors --config ./webpack.dll.config.js",
-  // 开发环境
-  "serve": "vue-cli-service serve",
-  // 部署测试环境
-  "beta": "sh ./deploy.sh develop",
-  // 部署正式环境
-  "build": "sh ./deploy.sh master",
   // 单元环境
   "test:unit": "vue-cli-service test:unit",
   // 语法验证
   "lint": "vue-cli-service lint",
+  // 开发环境
+  "serve": "vue-cli-service serve",
+  // 部署测试环境
+  "beta": "sh ./deploy.sh develop",
+  // 部署灰度环境
+  "rc": "sh ./deploy.sh release",
+  // 部署正式环境
+  "build": "sh ./deploy.sh master",
   // 打包分析环境，注意：--mode analyz 指定使用哪个模式的配置文件，此处使用 .env.analyz
   "analyz": "vue-cli-service build --mode analyz",
   // 测试环境真正部署git分支命令，在部署测试环境中做了命令跳转，可忽略不看
   "develop": "vue-cli-service build --mode beta",
+  // 灰度环境真正部署git分支命令，在部署灰度环境中做了命令跳转，可忽略不看
+  "release": "vue-cli-service build --mode production",
+  // 预发布环境（在前端本地服务器验证打包文件是否正常运行）
+  "release.local": "vue-cli-service build --mode release.local",
   // 正式环境真正部署git分支命令，在部署正式环境中做了命令跳转，可忽略不看
-  "master": "vue-cli-service build",
-  // 预发布环境（在前端服务器验证打包文件是否正常运行）
-  "release": "vue-cli-service build --mode release"
+  "master": "vue-cli-service build"
 }
 ```
 

@@ -7,15 +7,17 @@
   },
   "scripts": {
     "dll": "webpack -p --progress --profile --colors --config ./webpack.dll.config.js",
-    "serve": "vue-cli-service serve",
-    "beta": "sh ./deploy.sh develop",
-    "build": "sh ./deploy.sh master",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "serve": "vue-cli-service serve",
+    "beta": "sh ./deploy.sh develop",
+    "rc": "sh ./deploy.sh release",
+    "build": "sh ./deploy.sh master",
     "analyz": "vue-cli-service build --mode analyz",
     "develop": "vue-cli-service build --mode beta",
     "master": "vue-cli-service build",
-    "release": "vue-cli-service build --mode release"
+    "release": "vue-cli-service build --mode production",
+    "release.local": "vue-cli-service build --mode release.local"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
