@@ -69,10 +69,6 @@
         yarn build
   ```
 
-## npm 包问题
-
-- [webpack图片压缩image-webpack-loader无法安装或安装卡死的解决办法](https://my.oschina.net/itlangz/blog/1921136)
-
 ## 使用 ui库
 
   ```

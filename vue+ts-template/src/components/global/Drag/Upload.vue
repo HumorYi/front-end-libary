@@ -33,11 +33,9 @@ export default class DragUpload extends Mixins(MixinUpload) {
 
     const files = e['dataTransfer'].files
 
-    if (!this.validator(files)) {
-      return
+    if (this.validator(files)) {
+      this.$emit('success', files, this.params)
     }
-
-    this.$emit('success', files, this.params)
   }
 
   toggleDrop() {

@@ -1,7 +1,7 @@
-// 重置浏览器默认样式
-
+/* 初始化样式 */
 html,
 body,
+div,
 ul,
 ol,
 li,
@@ -25,21 +25,28 @@ tbody,
 tr,
 th,
 td,
-blockquote
+blockquote,
+img
   margin: 0
   padding: 0
 
+table,
+tr,
+td,
+form,
 input,
 button,
 select,
 textarea,
-video,
-audio
+audio,
+video
   outline: none
   border: none
+  font-family: $font-family
 
 textarea
   resize: none
+  font-family: $font-family
 
 ul li
   list-style: none
@@ -52,17 +59,29 @@ em
   font-style: normal
 
 a
+  font-family: $font-family
   text-decoration: none
   cursor: pointer
 
 a:hover
+  text-decoration: underline
   text-decoration: none
 
 img
   border: none
+  /* img标签2px间隙解决方案 */
+  vertical-align: middle
 
 table
   border-spacing: 0
+
+button
+  font-family: $font-family
+  background-color: unset
+  cursor: pointer
+
+  &[disabled]
+    cursor: not-allowed
 
 /* 去除浏览器输入框类型为数字 增加的上下箭头 */
 input
@@ -74,21 +93,61 @@ input
     -moz-appearance: textfield
 
 /* 谷歌浏览器输入框记住账号密码后的背景色 */
-input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill
-  /* -webkit-text-fill-color: #ededed !important */
-  /* -webkit-box-shadow: 0 0 0px 1000px transparent  inset !important */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill
   background-color: transparent
   background-image: none
   transition: background-color 50000s ease-in-out 0s
 
-button
-  cursor: pointer
-
-  &[disabled]
-    cursor: not-allowed
-
 button, input, optgroup, select, textarea
   font: menu !important
 
+html
+  -webkit-text-size-adjust: 100
+
+html body
+  font: 14px/1 $font-family, 'Acumin Variable Concept'
+  color: $color-normal
+  background-color: $bgc-body
+
+  a
+    color: $color-title
+
+
+html,
 body
-  font: 14px/1 'Microsoft YaHei', 'Acumin Variable Concept'
+  width: $width
+  height: 100%
+
+/* 解决浏览器窗口宽度小于最小宽度时 flex 布局导致内容压缩（全屏展示 1920px） */
+/** @media screen and (min-width: $min-width)
+  html,
+  body
+    position: relative
+    width: $min-width **/
+
+
+/* 解决页面滚动条出现时跳动问题（居中对齐 1200px） */
+// html,
+// body
+//   min-height: 100%
+
+// html
+//   /* 父元素相对定位 */
+//   position: relative
+
+// body
+//   /* 子元素绝对定位，继承父元素 min-height */
+//   position: absolute
+//   min-width: $width
+
+// @media screen and (min-width: $width)
+//   html
+//     overflow-y: auto
+//     overflow-x: hidden
+
+//   body
+//     position: absolute
+//     width: 100vw
+//     margin-right: calc(100vw - 100%)

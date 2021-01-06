@@ -3,7 +3,8 @@ export const acceptsExcel = {
     '.csv',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'application/vnd.ms-excel'
-  ]
+  ],
+  suffix: ['csv', 'xls', 'xlsx']
 }
 
 export const acceptsImg = {

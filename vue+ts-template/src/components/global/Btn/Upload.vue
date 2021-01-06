@@ -32,11 +32,11 @@ export default class BtnUpload extends Mixins(MixinUpload) {
 
     const files = e.target['files']
 
-    if (!this.validator(files)) {
-      return
+    if (this.validator(files)) {
+      this.$emit('success', files, this.params)
     }
 
-    this.$emit('success', files, this.params)
+    e.target['value'] = ''
   }
 }
 </script>

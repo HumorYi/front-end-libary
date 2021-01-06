@@ -8,6 +8,7 @@ const message = new Message()
 @Component
 export default class Upload extends Vue {
   @Prop({ type: Array, default: () => [] }) readonly accepts!: string[]
+  @Prop({ type: Array, default: () => [] }) readonly suffix!: string[]
   @Prop({ type: Number, default: 0 }) readonly lastUploadCount!: number
   @Prop({ type: Number, default: 0 }) readonly limit!: number
   @Prop({ type: String, default: '' }) readonly limitSize!: string
@@ -50,9 +51,21 @@ export default class Upload extends Vue {
     for (let i = 0; i < filesLen; i++) {
       const file = files[i]
 
-      if (acceptsLen > 0 && !accepts.includes(file.type)) {
-        message.error(this.acceptsErrMsg || this.acceptsErr())
-        return false
+      if (acceptsLen > 0) {
+        let result = false
+
+        if (file.type) {
+          result = accepts.includes(file.type)
+        } else if (this.suffix && this.suffix.length > 0) {
+          result = new RegExp('.(' + this.suffix.join('|') + ')$').test(
+            file.name
+          )
+        }
+
+        if (!result) {
+          message.error(this.acceptsErrMsg || this.acceptsErr())
+          return false
+        }
       }
 
       if (limitSize && !isRangeFileSize(file.size, limitSize)) {
