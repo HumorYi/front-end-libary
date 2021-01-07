@@ -6,31 +6,26 @@ import {
   getAccessToken,
   setAccessToken,
   delAccessToken
-} from '@globalUtils/sessionStorage.ts'
+} from '@globalUtils/accessToken.ts'
+
+import { loginRouteName } from '@archConf/user'
 
 export const isLogin = (): boolean => {
   return Boolean(getAccessToken())
 }
 
-export const showLogin = (route: Route): boolean => {
-  return !(isLogin() && route.name === 'Login' && route.query.redirect)
-}
-
-export const toLogin = (routeName = 'Login'): void => {
+export const toLogin = (routeName = loginRouteName): void => {
   router.push({ name: routeName })
 }
 
-export const login = (
+export const loginRedirect = (
   vm: Vue,
-  token: string,
   defaultJumpRouterName = 'Index'
 ): void => {
   const query = vm.$route.query
   const jumpRouterName = (query.redirect as string) || defaultJumpRouterName
 
   delete query.redirect
-
-  setAccessToken(token)
 
   vm.$router.push({
     name: jumpRouterName,
@@ -39,7 +34,7 @@ export const login = (
   })
 }
 
-export const logout = (): void => {
+export const logout = (isRemember: string): void => {
   // 删除跨页签 session
   localStorage.removeItem('getSessionStorage')
   delAccessToken()
@@ -58,7 +53,10 @@ export const handleRouteAccessToken = async (vm: Vue) => {
     accessToken = getAccessToken()
   }
 
-  accessToken && login(vm, accessToken)
+  if (accessToken) {
+    setAccessToken(accessToken)
+    loginRedirect(vm)
+  }
 }
 
 export const matchLoginAuthByRoute = (to: Route): boolean => {

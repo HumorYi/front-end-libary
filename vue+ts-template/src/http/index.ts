@@ -1,6 +1,6 @@
 import axios from 'axios'
 import factory from './factory'
-import { getAccessToken } from '@globalUtils/sessionStorage'
+import { getAccessToken } from '@globalUtils/accessToken'
 
 const proxy = process.env.VUE_APP_API_URL_PROXY || ''
 const instance = axios.create({

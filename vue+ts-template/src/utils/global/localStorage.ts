@@ -1,4 +1,4 @@
-const PROMOTION_CODE = 'PROMOTION_CODE'
+const ACCESS_TOKEN = 'ACCESS_TOKEN'
 
 // 对操作 key 的方法进行统一处理
 const getItem = (key: string) => {
@@ -10,6 +10,6 @@ const setItem = (key: string, val: any) =>
 const removeItem = (key: string) => localStorage.removeItem(key)
 
 // 暴露出去操作 key 的方法
-export const getPromotionCode = () => getItem(PROMOTION_CODE)
-export const setPromotionCode = (val: any) => setItem(PROMOTION_CODE, val)
-export const delPromotionCode = () => removeItem(PROMOTION_CODE)
+export const getAccessToken = () => getItem(ACCESS_TOKEN)
+export const setAccessToken = (val: any) => setItem(ACCESS_TOKEN, val)
+export const delAccessToken = () => removeItem(ACCESS_TOKEN)

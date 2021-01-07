@@ -183,11 +183,6 @@ const retryByRequestTimeout = async (
 
   config.__retryCount += 1
 
-  // 延时重试
-  // await new Promise(resolve => {
-  //   setTimeout(() => resolve(), retryDelay)
-  // })
-
   return instance(config)
 }
 

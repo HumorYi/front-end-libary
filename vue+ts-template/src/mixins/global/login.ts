@@ -1,6 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 
-import { showLogin, handleRouteAccessToken } from '@globalUtils/user'
+import { handleRouteAccessToken } from '@globalUtils/user'
 
 @Component
 export default class User extends Vue {
@@ -8,9 +8,9 @@ export default class User extends Vue {
 
   created() {
     handleRouteAccessToken(this)
+  }
 
-    setTimeout(() => {
-      this.showLogin = showLogin(this['$route'])
-    }, 50)
+  mounted() {
+    this.showLogin = true
   }
 }

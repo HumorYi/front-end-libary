@@ -6,8 +6,6 @@ const getUser = async function(): Promise<{}> {
 }
 // import { getUser } from '@api/User/index.ts'
 
-import { isMainAccount } from '@bizUtils/user'
-
 import {
   setAllPermission,
   setAssignPermission,
@@ -59,8 +57,7 @@ export default class User extends Vue {
       return
     }
 
-    // 主账号拥有所有权限
-    if (isMainAccount(account['type'])) {
+    if (account['hadAllPermission']) {
       setAllPermission(routes)
 
       return

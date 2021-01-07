@@ -1,8 +1,16 @@
 // 架构（不能删） -  api 配置
 import Message from '@archUtils/message.ts'
 
+// 如需要开启 token 失效状态码处理，自行解除注释
+// import router from '@/router'
+// import { logout } from '@bizUtils/user.ts'
+// import { loginRouteName } from '@archConf/user'
+// import { invalidAccessToken } from '@globalUtils/accessToken'
+
 enum statusCode {
   success = 0
+  // 根据自己项目制定的 token 失效状态码来更改
+  // tokenInvalid = 100000
 }
 type ResponseStatusCodeVal = {
   msg: string
@@ -11,6 +19,7 @@ type ResponseStatusCodeVal = {
 
 type ResponseStatusCode = {
   [statusCode.success]: ResponseStatusCodeVal
+  // [statusCode.tokenInvalid]: ResponseStatusCodeVal
   default: ResponseStatusCodeVal
 }
 
@@ -29,8 +38,20 @@ const handleUnKnowCode = {
   }
 }
 
+/* const handleTokenInvlid = {
+  msg: 'token invalid',
+  cb: () => {
+    if (router.currentRoute.name !== loginRouteName) {
+      message.error('登录状态已过期')
+      invalidAccessToken()
+      logout()
+    }
+  }
+} */
+
 const responseStatusCode: ResponseStatusCode = {
   [statusCode.success]: handleSuccess,
+  // [statusCode.tokenInvalid]: handleTokenInvlid,
   default: handleUnKnowCode
 }
 
