@@ -1,18 +1,13 @@
 <template>
-  <div class="radar-wrap">
-    <div
-      v-for="i in count"
-      :key="i"
-      class="g-animation-radar radar"
-      :style="{
-        animationDelay: i + delay + 's',
-        width: size,
-        height: size,
-        marginLeft: `calc( ${mlIncrement} - ${size}/2 )`,
-        marginTop: `calc( ${mtIncrement} - ${size}/2 )`,
-        background: bg
-      }"
-    ></div>
+  <div class="radar-container-wrap g-tac">
+    <ul class="g-poa-center radar-container">
+      <li
+        v-for="i in count"
+        :key="i"
+        class="g-animation-radar"
+        :style="{ animationDelay: i + delay + 's' }"
+      ></li>
+    </ul>
     <slot />
   </div>
 </template>
@@ -22,26 +17,25 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Radar extends Vue {
-  @Prop({ type: String, required: true }) readonly size!: number
-  @Prop({ type: String, default: '#e7e2fc' }) readonly bg!: string
   @Prop({ type: Number, default: 3 }) readonly count!: number
   @Prop({ type: Number, default: -1 }) readonly delay!: number
-  @Prop({ type: String, default: '0px' }) readonly mlIncrement!: string
-  @Prop({ type: String, default: '0px' }) readonly mtIncrement!: string
 }
 </script>
 
 <style lang="sass" scoped>
-.radar-wrap
+.radar-container-wrap
   position: relative
-  text-align: center
 
-  .radar
-    position: absolute
-    left: 50%
-    top: 50%
+  .radar-container
+    z-index: 0
     border-radius: 50%
 
-    +:not(.radar)
+    li
+      position: absolute
+      width: 100%
+      height: 100%
+      border-radius: inherit
+
+    + *
       position: relative
 </style>
