@@ -1,6 +1,9 @@
 <template>
   <div class="g-df-vc" @click="toggle">
-    <span class="checkbox" :class="{ checked: option.checked }"></span>
+    <span
+      class="checkbox g-flex-none"
+      :class="{ checked: option.checked }"
+    ></span>
     <span
       v-if="option.name"
       class="name g-cursor-pointer g-text-ellipsis g-color-main"
@@ -36,14 +39,14 @@ export default class Checkbox extends Vue {
   box-sizing: border-box
   width: 14px
   height: 14px
-  border: 1px solid #C4C7CC
+  border: 1px solid #DCE1E6
 
   border-radius: 2px
   cursor: pointer
   background-color: #fff
 
   &.checked
-    $color: #06F
+    $color: #7f57ff
 
     border-color: $color
     background-color: $color
@@ -52,9 +55,9 @@ export default class Checkbox extends Vue {
       content: ''
       position: absolute
       left: 4px
-      top: 0px
-      width: 5px
-      height: 10px
+      top: 1px
+      width: 3px
+      height: 6px
 
       border-color: #fff
       border-style: solid
@@ -63,8 +66,5 @@ export default class Checkbox extends Vue {
       transform: rotate(45deg)
 
   + .name
-    flex: 1
     margin-left: 4px
-
-    user-select: none
 </style>

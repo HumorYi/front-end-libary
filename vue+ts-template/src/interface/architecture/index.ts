@@ -16,6 +16,7 @@ export interface Counter {
   decrease: Function
   reset: Function
   isRunning: Function
+  isFinished: Function
 }
 
 export interface Download {

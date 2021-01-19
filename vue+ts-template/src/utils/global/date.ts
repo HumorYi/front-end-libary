@@ -4,6 +4,15 @@ export const transferDate = (date: Date | string) => {
   return typeof date === 'string' ? new Date(date) : date
 }
 
+export const toMonthDay = (date: Date | string, symbol = '.') => {
+  const transferDate =
+    typeof date !== 'string' ? date : date ? new Date(date) : new Date()
+  const month = String(transferDate.getMonth() + 1).padStart(2, '0')
+  const day = String(transferDate.getDate()).padStart(2, '0')
+
+  return [month, day].join(symbol)
+}
+
 export const toDate = (date: Date | string, symbol = '-') => {
   const transferDate =
     typeof date !== 'string' ? date : date ? new Date(date) : new Date()

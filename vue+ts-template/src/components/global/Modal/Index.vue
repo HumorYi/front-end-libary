@@ -6,18 +6,20 @@
       class="modal-content-wrap g-bs-bb g-df column"
       :class="dirConfig[dir]"
     >
-      <section>
-        <i
-          class="iconfont icon-cuo icon-close g-poa g-cursor-pointer"
-          @click="close"
-        ></i>
-        <h4 v-if="title" class="g-color-main g-fwb g-tac modal-title">
-          {{ title }}
-        </h4>
-      </section>
+      <slot name="header">
+        <section>
+          <i
+            class="iconfont icon-cuo icon-close g-poa g-cursor-pointer"
+            @click="close"
+          ></i>
+          <h4 v-if="title" class="g-color-main g-fwb g-tac modal-title">
+            {{ title }}
+          </h4>
+        </section>
+      </slot>
 
       <div class="modal-content g-por g-flex-1" id="g-modal-content">
-        <slot />
+        <slot name="content"></slot>
       </div>
     </div>
   </div>

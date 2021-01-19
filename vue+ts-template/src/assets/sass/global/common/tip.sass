@@ -1,7 +1,7 @@
 .g-tip
   $borderSize: 6px
   $distance: 24px
-  $bgc: rgba(0, 0, 0, 0.6)
+  $bgc: rgba(0, 0, 0, 0.8)
   $color: #fff
 
   box-sizing: border-box
@@ -22,18 +22,20 @@
     z-index: 10
 
   &.bottom, &.top
-    &:not(.normal), &:before
-      left: 50%
-      transform: translateX(-50%)
+    &:not(.normal)
+      &, &:before
+        left: 50%
+        transform: translateX(-50%)
 
     &:before
       border-left: $borderSize solid transparent
       border-right: $borderSize solid transparent
 
   &.left, &.right
-    &:not(.normal), &:before
-      top: 50%
-      transform: translateY(-50%)
+    &:not(.normal)
+      &, &:before
+        top: 50%
+        transform: translateY(-50%)
 
     &:before
       border-top: $borderSize solid transparent
@@ -78,16 +80,44 @@
     margin-left: 12px
     background-color: $bgc
 
-    &:before
-      top: 14px
-      border-bottom-color: $bgc
-      border-left: $borderSize solid transparent
+    &:not(.normal)
+      &:before
+        top: 14px
+        border-bottom-color: $bgc
+        border-left: $borderSize solid transparent
 
     &, &:before
       transform: none
 
   &.radius
     border-radius: 4px
+
+  &.white
+    $bgc: #fff
+
+    color: #333
+    background-color: $bgc
+
+    &.bottom:before
+      border-top-color: $bgc
+    &.top:before
+      border-bottom-color: $bgc
+    &.left:before
+      border-right-color: $bgc
+    &.right:before
+      border-left-color: $bgc
+
+    &:bofore
+
+  &.triangle-left:before
+    left: 10px
+
+  &.none
+    padding: 0
+    background-color: transparent
+
+    &:before
+      border: 0
 
 .g-tip-wrap
   position: relative

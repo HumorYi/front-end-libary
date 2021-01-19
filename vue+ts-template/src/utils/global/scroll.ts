@@ -1,9 +1,18 @@
 import { Scroll as InterfaceScroll } from '@bizInterface/index'
+import Counter from '@archUtils/counter'
+
 const className = ' g-oh'
+const counter = new Counter()
 
 export default class Scroll implements InterfaceScroll {
+  dom: HTMLElement
+
+  constructor(dom = document.documentElement) {
+    this.dom = dom
+  }
+
   getWidth() {
-    const el = document.createElement('p')
+    const el = document.createElement('div')
     const styles = {
       width: '100px',
       height: '100px',
@@ -18,40 +27,46 @@ export default class Scroll implements InterfaceScroll {
 
     const scrollBarWidth = el.offsetWidth - el.clientWidth
 
-    el.remove()
+    document.body.removeChild(el)
+
     return scrollBarWidth
   }
 
-  getClassNameSize() {
-    const classNames = document.documentElement.className.match(
-      new RegExp(className, 'g')
+  hasScroll() {
+    return (
+      document.body.scrollHeight > (window.innerHeight || this.dom.clientHeight)
     )
+  }
 
-    return classNames ? classNames.length : 0
+  setMarginRight() {
+    this.dom.style.marginRight = this.getWidth() + 'px'
+  }
+
+  resetMarginRight() {
+    this.dom.style.marginRight = '0'
   }
 
   open() {
-    document.documentElement.className += className
+    if (counter.isFinished()) {
+      this.dom.className += className
 
-    // 保证一次只删一个，可视为 scroll 计数器，避免连续开启多个 scroll 导致抖动
-    if (this.getClassNameSize() > 1) {
-      return
+      this.setMarginRight()
     }
 
-    document.documentElement.style.marginRight = this.getWidth() + 'px'
+    counter.increase()
   }
 
   close() {
-    document.documentElement.className = document.documentElement.className.replace(
-      className,
-      ''
-    )
+    counter.decrease()
 
-    if (this.getClassNameSize() > 0) {
-      return
+    if (counter.isFinished()) {
+      document.documentElement.className = document.documentElement.className.replace(
+        className,
+        ''
+      )
+
+      this.resetMarginRight()
     }
-
-    document.documentElement.style.marginRight = '0'
   }
 
   top(dom: HTMLElement, top: number, minScrollHeight: number) {
@@ -67,10 +82,8 @@ export default class Scroll implements InterfaceScroll {
 
   topHandle(dom: HTMLElement, top: number, minScrollHeight: number) {
     const scrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop
-    const className = ' g-top'
+      window.pageYOffset || this.dom.scrollTop || document.body.scrollTop
+    const className = ' g-pof-top'
     const canScrollHeight =
       document.body.scrollHeight - document.body.clientHeight
 

@@ -20,12 +20,50 @@ const { isProduction } = require('./env')
 const plugins = {}
 
 if (isProduction) {
+  /* css tree shaking S */
+  // 安装包 yarn add @fullhuman/postcss-purgecss @fullhuman/vue-cli-plugin-purgecss -D
+  // plugins['@fullhuman/postcss-purgecss'] = {
+  //   content: ['./public/**/*.html', './src/**/*.vue'],
+  //   defaultExtractor(content) {
+  //     return (
+  //       content
+  //         .replace(/<style[^]+?<\/style>/gi, '')
+  //         .match(/[\w-/:]*[\w-/]+/g) || []
+  //     )
+  //   },
+  //   safelist: [
+  //     /* vue S */
+  //     /-(leave|enter|appear)(|-(to|from|active))$/,
+  //     /^(?!(|.*?:)cursor-move).+-move$/,
+  //     /^router-link(|-exact)-active$/,
+  //     /data-v-.*/,
+  //     /* vue E */
+  //     /* loading S */
+  //     /^g-loading.*/,
+  //     /^g-spin.*/,
+  //     /^g-spinner$/,
+  //     /^g-poa-center$/,
+  //     /^g-mask$/,
+  //     /* loading E */
+  //     /* message S */
+  //     /^g-message.*/,
+  //     /^g-fade-in-top$/,
+  //     /* message E */
+  //     /* antd S */
+  //     /^ant-.*/,
+  //     /^has-.*/,
+  //     /^action.*/,
+  //     /^svg.*/
+  //     /* antd E */
+  //   ]
+  // }
+  /* css tree shaking E */
 }
 
 module.exports = ({ parser, env, map, file }) => {
-  const designWidth = file.dirname.includes(path.join('node_modules', 'vant'))
-    ? 375
-    : 750
+  // const designWidth = file.dirname.includes(path.join('node_modules', 'vant'))
+  //   ? 375
+  //   : 750
 
   return {
     parser: parser ? 'sugarss' : false,

@@ -1,9 +1,9 @@
 <template>
-  <div class="not-data-wrap" :class="{ exist: !exist }">
+  <div class="null-data-wrap" :class="{ exist: !exist }">
     <template v-if="!loading">
       <slot v-if="exist" />
 
-      <section v-else class="g-tac not-data">
+      <section v-else class="g-tac null-data">
         <img :src="isSearch ? searchImgSrc : imgSrc" alt="" />
 
         <p v-if="tip || searchtip" class="g-color-desc tip">
@@ -18,7 +18,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
-export default class NotData extends Vue {
+export default class NullData extends Vue {
   @Prop({ type: Boolean, required: true }) readonly loading!: boolean
   @Prop({ type: Boolean, required: true }) readonly exist!: boolean
   @Prop({ type: Boolean, default: false }) readonly isSearch!: boolean
@@ -30,7 +30,7 @@ export default class NotData extends Vue {
   @Prop({
     type: String /* ,
     default() {
-      return require('@viewsImg/' + this.$route.name + '/not-data.png')
+      return require('@viewsImg/' + this.$route.name + '/null-data.png')
     } */
   })
   readonly imgSrc!: string
@@ -38,7 +38,7 @@ export default class NotData extends Vue {
   @Prop({
     type: String /* ,
     default() {
-      return require('@globalImg/search-not-data.png')
+      return require('@globalImg/search-null-data.png')
     } */
   })
   readonly searchImgSrc!: string
@@ -46,8 +46,8 @@ export default class NotData extends Vue {
 </script>
 
 <style lang="sass" scoped>
-.not-data-wrap
-  .not-data
+.null-data-wrap
+  .null-data
     padding-top: 60px
     margin: 0 auto
 

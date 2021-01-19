@@ -10,13 +10,13 @@
     @extend .g-df
     align-items: center
 
-  &-vfe
-    @extend .g-df
-    align-items: flex-end
-
   &-hc
     @extend .g-df
     justify-content: center
+
+  &-vfs
+    @extend .g-df
+    align-items: flex-start
 
   &-hsa
     @extend .g-df
@@ -25,10 +25,6 @@
   &-hsb
     @extend .g-df
     justify-content: space-between
-
-  &-hfe
-    @extend .g-df
-    justify-content: flex-end
 
   &-vc-hsb
     @extend .g-df-vc
@@ -42,19 +38,15 @@
     @extend .g-df-vc
     justify-content: center
 
-  &-vc-hfe
-    @extend .g-df-vc
-    justify-content: flex-end
-
-  &-vc-hfs
-    @extend .g-df-vc
-    justify-content: flex-start
-
   &.wrap
     flex-wrap: wrap
 
   &.column
     flex-direction: column
 
-  &.important
-    display: flex !important
+.g-flex-1
+  flex: 1
+  min-width: 0
+
+.g-flex-none
+  flex: none

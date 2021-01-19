@@ -2,7 +2,7 @@
   <div class="top" @click="top">
     <slot>
       <i class="iconfont iconzhiding"></i>
-      <span v-if="title" class="title">{{ title }}</span>
+      <span v-if="title" class="icon-title">{{ title }}</span>
     </slot>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default class Top extends Vue {
   @Prop({ type: Number, default: 100 }) readonly step!: number
   @Prop({ type: Number, default: 20 }) readonly interval!: number
   @Prop({ type: Boolean, default: true }) readonly only!: boolean
-  @Prop({ type: String, default: '回到顶部' }) readonly title!: string
+  @Prop({ type: String, default: '返回顶部' }) readonly title!: string
 
   top() {
     const htmlDom = document.documentElement
@@ -33,7 +33,7 @@ export default class Top extends Vue {
 
 <style lang="sass" scoped>
 .top
-  .iconfont, .title
+  .iconfont, .icon-title
     vertical-align: middle
     display: inline-block
 
@@ -43,6 +43,6 @@ export default class Top extends Vue {
   .iconfont
     font-size: 20px
 
-    + .title
+    + .icon-title
       margin-left: 15px
 </style>

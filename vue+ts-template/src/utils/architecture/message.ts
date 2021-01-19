@@ -13,6 +13,8 @@ export default class Message implements InterfaceMessage {
   containerWrapId = 'g-message-wrap'
   containerClassName = 'g-message'
 
+  static list: string[] = []
+
   success(option: MessageOption | string): void {
     this.add(option, 'success', '')
   }
@@ -35,10 +37,20 @@ export default class Message implements InterfaceMessage {
     iconChar = 'i'
   ): void {
     const extendOption = this.getExtendOption(option)
+    const msg = extendOption['msg']
+
+    if (Message.list.includes(msg)) {
+      return
+    }
+
+    Message.list.push(msg)
+
     const extendClassName =
       this.containerClassName + ' ' + 'g-fade-in-top' + ' ' + className
     const container = document.createElement('div')
     let containerWrap = document.getElementById(this.containerWrapId)
+
+    container.setAttribute('msg', msg)
 
     if (containerWrap === null) {
       containerWrap = document.createElement('div')
@@ -64,6 +76,8 @@ export default class Message implements InterfaceMessage {
     }
 
     if (removeAll) {
+      Message.list = []
+
       containerWrap.parentElement &&
         containerWrap.parentElement.removeChild(containerWrap)
 
@@ -75,7 +89,15 @@ export default class Message implements InterfaceMessage {
     ]
 
     for (let i = 0; i < size; i++) {
-      messages[0] && containerWrap.removeChild(messages[0])
+      const message = messages[0]
+
+      if (message) {
+        const currMsg = message.getAttribute('msg')
+
+        Message.list = Message.list.filter((msg: string) => msg !== currMsg)
+
+        containerWrap.removeChild(messages[0])
+      }
     }
 
     if (!containerWrap.hasChildNodes() && containerWrap.parentElement) {

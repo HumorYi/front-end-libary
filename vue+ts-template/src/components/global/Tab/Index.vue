@@ -1,8 +1,9 @@
 <template>
-  <ul class="tab">
+  <ul class="tab g-df-vc">
     <li
       v-for="(item, index) in list"
       :key="index"
+      class="g-por"
       :class="{ active: index === active }"
       @click="change(index, params)"
     >
@@ -17,7 +18,7 @@
               $route.name === item.routerName && force
                 ? {
                     ...(item.query || {}),
-                    __routerForceJump: Math.random()
+                    _time: new Date().getTime() / 1000
                   }
                 : item.query || {}
           }"
@@ -32,7 +33,17 @@
         >
           <TabItem :item="item" v-bind="$attrs" />
         </a>
-        <TabItem v-else :item="item" v-bind="$attrs" />
+        <IconSort
+          v-else-if="item.dir !== undefined"
+          :text="item.name || item.text"
+          :dir="item.dir"
+        />
+        <TabItem
+          v-else
+          :item="item"
+          :isActive="index === active"
+          v-bind="$attrs"
+        />
       </template>
       <template v-else>
         <span>{{ item }}</span>
@@ -42,43 +53,31 @@
 </template>
 
 <script lang="ts">
-import MixinTab from '@globalMixins/tab'
+import MixinsTab from '@globalMixins/tab'
 import { Component, Mixins } from 'vue-property-decorator'
 
 @Component
-export default class Tab extends Mixins(MixinTab) {}
+export default class Tab extends Mixins(MixinsTab) {}
 </script>
 
 <style lang="sass" scoped>
-@import '@archSass/variables'
-
 .tab
-  display: flex
-  align-items: center
-
   user-select: none
 
   li
     text-align: center
     font-size: 16px
     cursor: pointer
-    color: #666
 
-    &, >*
-      width: 100%
+    &,
+    >*
       height: 100%
       display: flex
       align-items: center
       justify-content: center
 
-    &.active
-      color: #06f
-
-  &.full-underline
-    border-bottom: 1px solid #EBEFF5
-
-  &.mb
-    margin-bottom: 15px
+    >*
+      min-width: 100%
 
   &.vertical
     li
@@ -98,42 +97,16 @@ export default class Tab extends Mixins(MixinTab) {}
 
       >*
         box-sizing: border-box
-        padding-bottom: 12px
+        padding-bottom: 10px
 
     &.hover li:hover,
     li.active
-      color: #06f
-
       &:after
         content: ''
-        width: 100%
+        min-width: 100%
         height: 2px
         position: absolute
         bottom: 0
-        background-color: #06F
-
-  &.vertical-line
-    li:not(:last-child):after
-      $mh: 20px
-
-      content: ''
-
-      display: inline-block
-      width: 1px
-      height: 14px
-      margin-left: $mh
-      margin-right: $mh
-
-      background-color: $color-title
-
-  &.width
-    $ph: 20px
-
-    li
-      width: auto
-      margin-right: 20px
-      padding-left: $ph
-      padding-right: $ph
-
-      font-size: 14px
+        left: 0
+        background-color: #7F57FF
 </style>

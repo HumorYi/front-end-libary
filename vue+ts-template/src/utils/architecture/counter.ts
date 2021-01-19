@@ -24,4 +24,8 @@ export default class Counter implements InterfaceCounter {
   isRunning() {
     return this.count !== this.originalCount
   }
+
+  isFinished() {
+    return this.count === this.originalCount
+  }
 }

@@ -1,9 +1,17 @@
+import { toMonthDay } from '@globalUtils/date'
+
 const padStartZero = (data: any): string => {
   const strData = String(data)
   return strData.length < 2 ? '0' + strData : strData
 }
 
 export default [
+  {
+    name: 'monthDay',
+    fn(value: number): string {
+      return toMonthDay(new Date(value))
+    }
+  },
   {
     name: 'year',
     fn(value: string): string {

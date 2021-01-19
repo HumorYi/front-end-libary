@@ -63,14 +63,18 @@ a
   text-decoration: none
   cursor: pointer
 
-a:hover
-  text-decoration: underline
-  text-decoration: none
+  // 去除移动端 a 标签点击会有蓝色的背景色
+  -webkit-tap-highlight-color: transparent
+
+  &:hover
+    text-decoration: none
 
 img
   border: none
   /* img标签2px间隙解决方案 */
   vertical-align: middle
+  // 禁止图片拖动
+  // pointer-events: none
 
 table
   border-spacing: 0
@@ -108,11 +112,19 @@ html body
   a
     color: $color-title
 
+  /* 禁止图片被选中（涉及到复制需要开启选中） S */
+  // 还需要结合 derective/index.tx => v-undrag 指令
+  // &:not(.copy)
+  //   img
+  //     user-select: none
+  /* 禁止图片被选中（涉及到复制需要开启选中） E */
+
 
 html,
 body
   width: $width
   height: 100%
+  height: 100vh
 
 /* 解决浏览器窗口宽度小于最小宽度时 flex 布局导致内容压缩（全屏展示 1920px） */
 /** @media screen and (min-width: $min-width)
@@ -145,3 +157,24 @@ body
 //     position: absolute
 //     width: 100vw
 //     margin-right: calc(100vw - 100%)
+
+
+/* 居中布局滚动条防抖 S */
+// html
+//   overflow-y: auto
+
+// body
+//   width: 100%
+//   width: 100vw
+
+// :root
+//   overflow: auto
+//   overflow-x: hidden
+
+// :root body
+//   position: absolute
+
+// @media screen and ( max-width: $min-width )
+//   body
+//     overflow: auto
+/* 居中布局滚动条防抖 E */

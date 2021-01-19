@@ -1,0 +1,20 @@
+html
+  font-size: 16px
+
+@mixin screen($min-width, $percent, $size, $base, $divisor)
+  @media screen and (min-width: $min-width)
+    html
+      font-size: calc(#{$percent} + #{$base} * (100vw - #{$min-width}) / #{$divisor})
+      font-size: calc(#{$size} + #{$base} * (100vw - #{$min-width}) / #{$divisor})
+
+/* iPhone6的375px尺寸作为16px基准，414px正好18px大小, 600 20px */
+@include screen(375px, 100%, 16px, 2, 39)
+
+/* 414px-1000px每100像素宽字体增加1px(18px-22px) */
+@include screen(414px, 112.5%, 18px, 4, 586)
+
+/* 600px-1000px每100像素宽字体增加1px(20px-24px) */
+@include screen(600px, 125%, 20px, 4, 400)
+
+/* 1000px往后是每100像素0.5px增加 */
+@include screen(1000px, 137.5%, 22px, 6, 1000)

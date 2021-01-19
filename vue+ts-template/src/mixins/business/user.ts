@@ -18,7 +18,7 @@ import { transformPermission } from '@bizUtils/role'
 export default class User extends Vue {
   accessibleMobiles: string[] = []
 
-  hideAccessRouterNames: string[] = ['PromoteMakeMoney']
+  hideAccessRouterNames: string[] = ['']
 
   get accessAuth() {
     return this.accessibleMobiles.includes(this.userMobile)
@@ -73,25 +73,7 @@ export default class User extends Vue {
 
   setUser(data: {}) {
     this.$root['user'] = {
-      mobile: data['phone'],
-      balance: Number(data['cash']),
-      type: data['account_type'],
-      avatar: data['avatar'] || require('@globalImg/user-avatar.png'),
-      lastLoginIp: data['last_ip'],
-      lastLoginIpLocation: data['ip_location'],
-      lastLoginDatetime: data['last_time'],
-      seller_id: data['seller_id'],
-      qq: data['qq'],
-      agentBillDomain: data['agent_domain'],
-      permissions: transformPermission(data['rights']),
-      isShowMonthlyCard: Boolean(data['is_show_monthly_card']),
-      isBuyMonthlyCard: Boolean(data['is_buy_monthly_card']),
-      activityType: data['activity_type'],
-      agentRenewMonthMoney: data['agent_amount'],
-      taobaoAuthExpireDatetime: data['taobao_expire_date'],
-      settlementAmount: data['untreated'],
-      withdrawAmount: Number(data['withdrawal']),
-      popularize: data['popularize']
+      permissions: transformPermission(data['permissions'])
     }
   }
 }
