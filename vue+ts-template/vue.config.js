@@ -4,7 +4,6 @@ const fs = require('fs')
 const { isProduction, worker, ui } = require('./env')
 
 const { ContextReplacementPlugin, DllReferencePlugin } = require('webpack')
-const { merge } = require('webpack-merge')
 const tsImportPluginFactory = require('ts-import-plugin')
 
 // const LodashWebpackPlugin = require('lodash-webpack-plugin')
@@ -182,8 +181,8 @@ const demandImportLibrary = config => {
   config.module
     .rule('ts')
     .use('ts-loader')
-    .tap(options => {
-      options = merge(options, {
+    .tap(options =>
+      Object.assign(options, {
         transpileOnly: true,
         getCustomTransformers: () => ({
           before: [...getTsImportPluginFactories(ui)]
@@ -192,8 +191,7 @@ const demandImportLibrary = config => {
           module: 'es2015'
         }
       })
-      return options
-    })
+    )
 }
 
 const appendWorkerLoader = config => {
@@ -233,9 +231,15 @@ const appendAlias = config => {
     )
   })
 
-  const otherAlias = {
-    '@ant-design/icons/lib/dist$': './src/register/antd/icons.ts'
+  const otherAlias = {}
+
+  if (ui === 'ant-design-vue') {
+    console.log(
+      '使用 ant-design-vue 按需引入时，如果有用到icon，放开下面这条注释，并手动到下面路径文件中引入图标'
+    )
+    // otherAlias['@ant-design/icons/lib/dist$'] = './src/register/antd/icons.ts'
   }
+
   Object.keys(otherAlias).forEach(name =>
     config.resolve.alias.set(name, resolve(otherAlias[name]))
   )
@@ -462,7 +466,9 @@ module.exports = {
   //是否为 Babel 或 TypeScript 使用 thread-loader。
   // 该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建，在适当的时候开启几个子进程去并发的执行压缩
   // 使用 web worker 时需要关闭并行编译
-  parallel: worker ? false : require('os').cpus().length > 1,
+  // parallel: worker ? false : require('os').cpus().length > 1,
+  // 默认不开启，因为发现使用 ant-design-vue 没有打包样式文件，猜测是因为多个子进程压缩后文件没有处理好
+  parallel: false,
 
   css: {
     /**

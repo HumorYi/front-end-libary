@@ -77,6 +77,10 @@
         yarn build
   ```
 
+## npm 包问题
+
+- [webpack图片压缩image-webpack-loader无法安装或安装卡死的解决办法](https://my.oschina.net/itlangz/blog/1921136)
+
 ## 使用 ui库
 
   ```
@@ -103,10 +107,44 @@
         components.forEach(component => Vue.use(component))
 
     4、在 vue+ts-template\src\register\index.ts 中导入 element-ui.ts文件
-    	import ./element-ui.ts
+    	import './element-ui'
     5、在 vue+ts-template\env.js 输入要按需打包的 ui框架名
       ui: 'element-ui'
     6、yarn serve
+
+例如：ant-design-vue
+    1、安装 yarn add ant-design-vue -S
+    2、在 vue+ts-template\src\register 目录下创建 antd 目录
+    3、在 antd 目录下 创建 index.ts 和 icons.ts（如果有用到图标） 文件
+    4、在 index.ts 文件中执行按需引入
+        import Vue from 'vue'
+
+        // 根据使用需求确定是否需要引入 icon
+        // import 'element-ui/lib/theme-chalk/icon.css'
+
+        import { Button } from 'element-ui'
+
+        const components: any[] = [ Button ]
+
+        components.forEach(component => Vue.use(component))
+
+    5、在 icons.ts 文件中执行按需引入图标
+      1、鼠标右键检查组件使用图标类名，例如 DatePicker组件 =》 <i aria-label="icon: calendar"></i> => 图标名称为：calendar
+      2、去官网 Ctrl+F 使用图标名称找 https://www.antdv.com/components/icon-cn/
+      3、注意：图标有好几种主题，在 Select the Icon Theme 下面，在某个主题下找不到再切换到其它主题继续找
+      4、例如在 Outlined 主题下找到 icon，那么就进入 @ant-design/icons/lib/outline（主题目录） 下找
+          一般图标命名规则为：图标名称首字母大写 + 主题首字母大写
+          注意：找的是 图标名.ts 文件
+      5、导出图标进行打包，例如
+        export { default as CalendarOutline } from '@ant-design/icons/lib/outline/CalendarOutline'
+
+    6、在 vue.config.js 中搜索 @ant-design/icons/lib/dist$，取消注释，将要打包图标的路径指定为刚创建的 icons.ts 文件所在路径
+
+    7、在 vue+ts-template\src\register\index.ts 中导入 antd/index.ts文件
+    	import './antd'
+    8、在 vue+ts-template\env.js 输入要按需打包的 ui框架名
+      ui: 'ant-design-vue'
+    9、yarn serve
   ```
 
 ## 移动端项目

@@ -61,6 +61,7 @@ if (isProduction) {
 }
 
 module.exports = ({ parser, env, map, file }) => {
+  // 使用 vant
   // const designWidth = file.dirname.includes(path.join('node_modules', 'vant'))
   //   ? 375
   //   : 750
