@@ -119,10 +119,7 @@
     4、在 index.ts 文件中执行按需引入
         import Vue from 'vue'
 
-        // 根据使用需求确定是否需要引入 icon
-        // import 'element-ui/lib/theme-chalk/icon.css'
-
-        import { Button } from 'element-ui'
+        import { Button } from 'ant-design-vue'
 
         const components: any[] = [ Button ]
 
