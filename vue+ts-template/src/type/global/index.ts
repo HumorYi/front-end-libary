@@ -2,6 +2,7 @@
 export type CheckboxOption = {
   checked: boolean
   name?: string
+  clickCheckedAll?: boolean
   children?: CheckboxOption[]
   // 下面两个选项是做全选用的，在 Checkboxs 中 自动向 选项中注入
   checkedCount?: number

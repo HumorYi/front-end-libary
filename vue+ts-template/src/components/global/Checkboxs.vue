@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit, Watch, Vue } from 'vue-property-decorator'
+import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import { CheckboxOption } from '@globalType/index'
 
 @Component
@@ -52,10 +52,13 @@ export default class Checkboxs extends Vue {
   @Prop({ type: Boolean, default: true }) readonly showCheckAll!: boolean
   @Prop({ type: Boolean, default: true }) readonly ellipsis!: boolean
 
-  @Emit()
-  toggle() {}
+  toggle(option: CheckboxOption) {
+    this.$emit('toggle', option, this)
+  }
 
-  toggleCheckAll(checked: boolean) {
+  toggleCheckAll(option: CheckboxOption) {
+    const checked = option.checked
+
     if (!this.isOpen()) {
       return
     }
@@ -64,7 +67,11 @@ export default class Checkboxs extends Vue {
       ? this.toggleCheckAllForChildrens(checked)
       : this.toggleCheckAllForOptionChildren(checked)
 
-    this.toggle()
+    if (this.option.clickCheckedAll !== undefined) {
+      this.option.clickCheckedAll = checked
+    }
+
+    this.toggle(option)
   }
 
   toggleCheckAllForChildrens(checked: boolean) {
@@ -84,16 +91,22 @@ export default class Checkboxs extends Vue {
     this.isChildrens() && this.toggleCheckChildForChildrens()
   }
 
-  toggleCheckChild(checked: boolean, option = this.option) {
+  toggleCheckChild(
+    option: CheckboxOption,
+    parentOption = this.option,
+    emit = true
+  ) {
+    const checked = option.checked
+
     if (!this.isOpen()) {
       return
     }
 
-    this.toggleCheckChildForOptionChildren(checked, option)
+    this.toggleCheckChildForOptionChildren(checked, parentOption)
 
     this.isChildrens() && this.toggleCheckChildForChildrens()
 
-    this.toggle()
+    emit && this.toggle(option)
   }
 
   toggleCheckChildForChildrens() {
@@ -105,15 +118,24 @@ export default class Checkboxs extends Vue {
       childrenCount += child['childrenCount']
     })
 
-    this.option.checkedCount = checkedCount
-    this.option.childrenCount = childrenCount
-
-    this.option.checked = checkedCount === childrenCount
+    this.setOptionCount(this.option, checkedCount, childrenCount)
+    this.setOptionChecked(this.option)
   }
 
   toggleCheckChildForOptionChildren(checked: boolean, option: {}) {
     option['checkedCount'] += checked ? 1 : -1
-    option['checked'] = option['checkedCount'] === option['childrenCount']
+    this.setOptionChecked(option)
+  }
+
+  setOptionChecked(option: {}) {
+    option['checked'] =
+      option['checkedCount'] !== 0 &&
+      option['checkedCount'] === option['childrenCount']
+  }
+
+  setOptionCount(option: {}, checkedCount: number, childrenCount: number) {
+    option['checkedCount'] = checkedCount
+    option['childrenCount'] = childrenCount
   }
 
   check(option: {}, checked?: boolean) {
@@ -139,7 +161,17 @@ export default class Checkboxs extends Vue {
       return
     }
 
-    option['checked'] = option['checkedCount'] === option['childrenCount']
+    const children = option['children']
+
+    if (children) {
+      this.setOptionCount(
+        option,
+        children.filter((item: CheckboxOption) => item.checked).length,
+        children.length
+      )
+    }
+
+    this.setOptionChecked(option)
   }
 
   @Watch('option', { immediate: true })
