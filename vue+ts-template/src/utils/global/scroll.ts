@@ -98,11 +98,11 @@ export default class Scroll implements InterfaceScroll {
     dom.className = dom.className.replace(className, '')
   }
 
-  isScrollBottom(elm: HTMLElement, increment = 0): boolean {
+  isScrollBottom(elm = this.dom, increment = 0): boolean {
     return elm.scrollHeight - elm.scrollTop > elm.clientHeight + increment
   }
 
-  async request(target: HTMLElement, fn: Function): Promise<void> {
+  async request(target = this.dom, fn: Function): Promise<void> {
     const scrollTop = target.scrollTop
 
     await fn()
