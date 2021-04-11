@@ -23,11 +23,14 @@ function extendTimer(target: Target, type = 'timeout'): Target {
   target['cancel'] = function() {
     const fnName = (config[type] && config[type].cancel) as string
 
-    window[fnName] && window[fnName](target['timer'])
+    if (window[fnName]) {
+      window[fnName](target['timer'])
+      target['timer'] = 0
+    }
   }
 
   target['setTimer'] = function(timeout: number, callback?: Function) {
-    const fnName = (config[type] && config[type].cancel) as string
+    const fnName = (config[type] && config[type].setTimer) as string
 
     target['cancel']()
 

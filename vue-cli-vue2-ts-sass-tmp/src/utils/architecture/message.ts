@@ -10,10 +10,11 @@ const extendObject = (output: {}, input: {}): {} => {
 }
 
 export default class Message implements InterfaceMessage {
+  static list: string[] = []
+
+  timer!: number
   containerWrapId = 'g-message-wrap'
   containerClassName = 'g-message'
-
-  static list: string[] = []
 
   success(option: MessageOption | string): void {
     this.add(option, 'success', '')
@@ -40,15 +41,17 @@ export default class Message implements InterfaceMessage {
     const msg = extendOption['msg']
 
     if (Message.list.includes(msg)) {
+      window.clearTimeout(this.timer)
+
+      this.openTimer(extendOption)
       return
     }
 
     Message.list.push(msg)
 
-    const extendClassName =
-      this.containerClassName + ' ' + 'g-fade-in-top' + ' ' + className
+    const extendClassName = `g-fade-in-top ${this.containerClassName} ${className}`
     const container = document.createElement('div')
-    let containerWrap = document.getElementById(this.containerWrapId)
+    let containerWrap = this.getContainerWrapDom()
 
     container.setAttribute('msg', msg)
 
@@ -63,13 +66,24 @@ export default class Message implements InterfaceMessage {
 
     containerWrap.appendChild(container)
 
+    this.openTimer(extendOption)
+  }
+
+  getContainerWrapDom() {
+    return document.getElementById(this.containerWrapId)
+  }
+
+  openTimer(extendOption: {}) {
     if (extendOption['autoClose']) {
-      setTimeout(() => this.remove(), extendOption['timeout'])
+      this.timer = window.setTimeout(
+        () => this.remove(),
+        extendOption['timeout']
+      )
     }
   }
 
   remove(removeAll = false, size = 1): void {
-    const containerWrap = document.getElementById(this.containerWrapId)
+    const containerWrap = this.getContainerWrapDom()
 
     if (!containerWrap) {
       throw new Error('您还未创建提示')
@@ -84,9 +98,9 @@ export default class Message implements InterfaceMessage {
       return
     }
 
-    const messages = [
-      ...containerWrap.getElementsByClassName(this.containerClassName)
-    ]
+    const messages = Array.from(
+      containerWrap.getElementsByClassName(this.containerClassName)
+    )
 
     for (let i = 0; i < size; i++) {
       const message = messages[0]
@@ -96,7 +110,7 @@ export default class Message implements InterfaceMessage {
 
         Message.list = Message.list.filter((msg: string) => msg !== currMsg)
 
-        containerWrap.removeChild(messages[0])
+        containerWrap.removeChild(message)
       }
     }
 

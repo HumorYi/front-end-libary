@@ -32,9 +32,10 @@ export default class Scroll implements InterfaceScroll {
     return scrollBarWidth
   }
 
-  hasScroll() {
+  hasScrollV() {
     return (
-      document.body.scrollHeight > (window.innerHeight || this.dom.clientHeight)
+      this.getAttrVal('scrollHeight') >
+      (window.innerHeight || this.getAttrVal('clientHeight'))
     )
   }
 
@@ -81,11 +82,10 @@ export default class Scroll implements InterfaceScroll {
   }
 
   topHandle(dom: HTMLElement, top: number, minScrollHeight: number) {
-    const scrollTop =
-      window.pageYOffset || this.dom.scrollTop || document.body.scrollTop
+    const scrollTop = window.pageYOffset || this.getScrollTop()
     const className = ' g-pof-top'
     const canScrollHeight =
-      document.body.scrollHeight - document.body.clientHeight
+      this.getAttrVal('scrollHeight') - this.getAttrVal('clientHeight')
 
     if (scrollTop > top && canScrollHeight > minScrollHeight) {
       if (!dom.className.includes(className)) {
@@ -96,5 +96,42 @@ export default class Scroll implements InterfaceScroll {
     }
 
     dom.className = dom.className.replace(className, '')
+  }
+
+  isScrollBottom(elem = this.dom, increment = 0): boolean {
+    return (
+      this.getAttrVal('scrollHeight', elem) - this.getScrollTop(elem) <=
+      this.getAttrVal('clientHeight', elem) + increment
+    )
+  }
+
+  async request(target = this.dom, fn: Function): Promise<void> {
+    const scrollTop = this.getScrollTop(target)
+
+    await fn()
+
+    this.setScrollTop(scrollTop, target)
+  }
+
+  getAttrVal(name: string, elem?: HTMLElement) {
+    if (elem) {
+      return elem[name]
+    }
+
+    return document.documentElement[name] > document.body[name]
+      ? document.documentElement[name]
+      : document.body[name]
+  }
+
+  getScrollTop(elem?: HTMLElement): number {
+    return elem ? elem.scrollTop : this.getAttrVal('scrollTop')
+  }
+
+  setScrollTop(scrollTop: number, elem?: HTMLElement): void {
+    if (elem) {
+      elem.scrollTop = scrollTop
+    } else {
+      document.documentElement.scrollTop = document.body.scrollTop = scrollTop
+    }
   }
 }

@@ -266,6 +266,21 @@ const removeTagSpace = config => {
     .end()
 }
 
+// 自定义loader，移除 console.log
+const removeConsole = config => {
+  config.module
+    .rule('ts')
+    .use('remove-console')
+    .loader('remove-console')
+    .end()
+
+  config.module
+    .rule('js')
+    .use('remove-console')
+    .loader('remove-console')
+    .end()
+}
+
 const handleHtmlWebpackPlugin = config => {
   // 传递给 html-webpack-plugin 构造函数的新参数，在 public/index.html 中使用
   config.plugin('html').tap(args => {
@@ -601,6 +616,8 @@ module.exports = {
 
       compressImg(config)
 
+      // removeConsole(config)
+
       // 打包分析
       process.env.IS_ANALYZ && packageAnalyz(config)
     }
@@ -608,6 +625,9 @@ module.exports = {
 
   configureWebpack: config => {
     const plugins = []
+
+    // 使用自定义loader，建议发布到npm
+    // config.resolveLoader.modules.push(resolve('loaders'))
 
     if (isProduction) {
       config.mode = 'production'
